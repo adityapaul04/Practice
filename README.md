@@ -1,2 +1,0 @@
-Hello Sweetie.
-Bye Sweetie.
