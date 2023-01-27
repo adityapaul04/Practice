@@ -22,10 +22,5 @@ pipeline {
                 echo 'Deploying....'
             }
         }
-        stage('End') {
-            steps {
-                echo 'Bye'
-            }
-        }
     }
 }
