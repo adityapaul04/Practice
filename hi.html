@@ -5,3 +5,27 @@
    <h1>Hello World<h1>
  </body>
 </html>
+Continuous Integration is a process of integrating code changes from multiple developers in a single project many times. The software is tested immediately after a code commit. With each code commit, 
+ code is built and tested. 
+ If the test is passed, the build is tested for deployment. 
+ If the deployment is successful, the code is pushed to production.
+  
+
+Following are some of the main features or practices for Continuous Integration.
+
+Maintain a single source repository − All source code is maintained in a single repository. This avoids having source code being scattered across multiple locations. Tools such as Subversion and Git are the most popular tools for maintaining source code.
+
+Automate the build − The build of the software should be carried out in such a way that it can be automated. If there are multiple steps that need to be carried out, then the build tool needs to be capable of doing this. For .Net, MSBuild is the default build tool and for Java based applications you have tools such as Maven and Grunt.
+
+Make your build self-testing − The build should be testable. Directly after the build occurs, test cases should be run to ensure that testing can be carried out for the various functionality of the software.
+
+Every commit should build on an integration machine − The integration machine is the build server and it should be ensured that the build runs on this machine. This means that all dependent components should exist on the Continuous Integration server.
+
+Keep the build fast − The build should happen in minutes. The build should not take hours to happen, because this would mean the build steps are not properly configured.
+
+Test in a clone of the production environment − The build environment should be close in nature to the production environment. If there are vast differences between these environments, then there can be a case that the build may fail in production even though it passes on the build server.
+
+Everyone can see what is happening − The entire process of build and testing and deployment should be visible to all.
+
+Automate deployment − Continuous Integration leads to Continuous deployment. It is absolutely necessary to ensure that the build should be easy to deploy onto either a staging or production environment.
+
