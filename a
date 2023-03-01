@@ -1,0 +1,287 @@
+PIPELINE USING  “BUILD PIPELINE” PLUGIN
+Create 3 jobs named “build,test,deploy”
++NEW
+	>give item name
+	>select freestyle project
+	>[OK]
+	
+	>Give description
+	>In build steps
+		>execute windows batch command
+			> echo “Build”
+	>Apply and Save
+
+
++NEW
+	>give item name
+	>select freestyle project
+	>[OK]
+	
+	>Give description
+	>In build steps
+		>execute windows batch command
+			> echo “Test”
+	>Apply and Save
+
++NEW
+	>give item name
+	>select freestyle project
+	>[OK]
+	
+	>Give description
+	>In build steps
+		>execute windows batch command
+			> echo “Deploy”
+	>Apply and Save
+
+->Go to dashboard > Manage Jenkins
+	>Manage Plugins
+		>Available Plugins > Build Pipeline
+			>Install without restart
+			>Safe Restart
+
+->Dashboard
+	> Select ‘Build’ Job
+	>Configure
+	>Post build Actions
+		>Build Other Projects -> Select ‘Test’
+	>Apply and Save
+
+->Dashboard
+	> Select ‘Test’ Job
+	>Configure
+	>Post build Actions
+		>Build Other Projects -> Select ‘Deploy’
+	>Apply and Save
+
+>Go to dashboard 
+>Select +
+>Give View name
+>Select ‘build pipeline view’ inside type
+>Create
+
+>Under Pipeline Flow > Under Select initial Job
+>Select Build
+>Apply and ok/save
+
+>Trigger a pipeline
+ALL WILL TURN GREEN
+
+RUN A JOB AND PIPELINE PARALLELLY
+
+>Create a freestyle project/Job
+
+>Under Build Steps > Add Build Steps
+			>Select “Execute Windows Batch Command”
+				> echo “____________”
+>Go to dashboard
+>Create a pipeline job.
+>Under Post build actions > Build other projects > Type “Test, Deploy(NAME OF JOBS)”.
+
+>Go to dashboard
+>Go to already created pipeline view or Create a new pipeline view (SEE ABOVE TO CREATE PIPELINE VIEW).
+>Select “Trigger a pipeline”.
+
+MANUALLY TRIGGER A SPECIFIC JOB WHICH IS IN PIPELINE
+
+>Go to dashboard
+>Go to the “test”(any job) job which has been already created or create a job.
+>Under Post build actions > Build other projects (Manual Steps) > Type “Deploy(NAME OF JOB)”.
+
+>Go to dashboard
+>Go to already created pipeline view or Create a new pipeline view (SEE ABOVE TO CREATE PIPELINE VIEW).
+>Select “Trigger a pipeline”.
+>Then trigger the “Deploy” job manually.
+
+CREATE A PIPELINE (DECLARATIVE) USING JENKINS FILES IN LOCAL MACHINE OR DECLARATIVE PIPELINE.
+
++NEW
+	>give item name
+	>select pipeline
+	>[OK]
+
+	>Under Pipeline > Under Definition 
+				>Pipeline Script
+					>Try Sample Code (Right side corner)
+					>Hello World
+>Apply and Save
+>Build now
+
+CREATE A PIPELINE USING JENKINS FILES IN HOSTED IN GITHUB(DECLARATIVE PIPELINE).
+
+>Go to dashboard
++NEW
+	>give item name
+	>select pipeline
+	>[OK]
+
+>Under Pipeline > Under Definition 
+				>Pipeline Script from SCM
+		 > Under SCM
+				>Select Git
+		>Give Repository URL and Credentials
+		>  Under Script Path Type “Jenkinsfile”
+>Apply & Save
+
+Jenkinsfile------------------
+pipeline {
+	    agent any
+	
+	    stages {
+	         stage('Build') {
+	            steps {
+	                echo 'Building..'
+	            }
+	        }
+	        stage('Test') {
+	            steps {
+	                echo 'Testing..'
+	            }
+	        }
+	        stage('Deploy') {
+	            steps {
+	                echo 'Deploying....'
+	            }
+	        }
+	    }
+	}
+
+POLL SCM(GITHUB)
+
+>Go to dashboard
++NEW
+	>give item name
+	>select pipeline
+	>[OK]
+>Under Build Triggers > Select Poll SCM
+			> * * * * *
+>Under Pipeline > Under Definition 
+				>Pipeline Script from SCM
+		 > Under SCM
+				>Select Git
+		>Give Repository URL and Credentials
+		>  Under Script Path Type “Jenkinsfile”
+>Apply & Save
+>Build
+
+
+WEBHOOK
+
+Create a new item (Pipeline)
+>item name
+> Pipeline
+> Ok
+> Configure
+> Build Triggers – GitHub hook trigger for GITScm polling
+>Under Pipeline > Under Definition 
+				>Pipeline Script from SCM
+		 > Under SCM
+				>Select Git
+		>Give Repository URL and Credentials
+		>  Under Script Path Type “Jenkinsfile”
+
+> Apply and Save
+> Build
+
+
+Go to Github
+> Select a repository
+> Settings – Webhook
+> Add Webhook
+> (Download ngrok for windows)
+> Open the command prompt from where ngrok is downloaded
+> Give below commands
+> ngrok.exe –version
+> ngrok.exe http 8080
+> copy forwarding URL (payload URL) upto ngrok.io
+
+> Payload URL(in github webhook setting):- paste the payload URL/github-webhook/
+> Add Webhook
+> Make changes in the github repository
+> Go to Jenkins and see for the changes (changes will be seen immediately)
+
+
+ROLE BASED:
+>Dashboard
+>Manage Jenkins > Manage Plugins > Download Role Based
+
+>Manage Jenkins > Configure Global Security >  Under Authorization > Select Role Based Strategy
+>Manage Jenkins > Manage Users > Create 3 Users
+>Manage Jenkins > Manage and Assign Roles > Manage Roles > Under Global Roles Add the users one by one
+	> Give Overall read permissions to all, Give Job discover, read and workspace permissions to all.
+> Apply & Save
+
+>Go to dashboard > Create 3 folders
+
+>Manage Jenkins > Manage and Assign roles > Assign Roles > Under Global Roles Add the users one by one and tick accordingly
+ >Apply and Save 
+
+>Manage Jenkins > Manage and Assign roles > Manage Roles > Under Item roles give role to add (username) and pattern (folder name). 
+		> select the permissions accordingly
+
+>Manage Jenkins > Manage and Assign roles > Assign Roles > Under item Roles add all the users and tick accordingly.
+
+
+
+ NORMAL EMAIL
+>Manage Jenkins
+>Configure System
+>go down below to email notification
+>smtp server > smtp.gmail.com
+>check on use smtp authentication
+>Enter username (email) > enter password (app password)
+>check on use SSL
+>smtp port > 465
+>reply to address > email
+> check on test config by sending test email > enter email
+>click on test configuration
+
+EXTENDED EMAIL
+
+>Manage Jenkins
+>Configure System
+>go down below to email notification
+>smtp server > smtp.gmail.com
+>check on use smtp authentication
+>Enter username (email) > enter password (app password)
+>check on use SSL
+>smtp port > 465
+>reply to address > email
+> check on test config by sending test email > enter email
+>click on test configuration
+>APPLY AND SAVE
+>Manage Jenkins
+>congifure system
+>Go to Extended email notification
+>smtp server : smtp.gmail.com
+>smtp port : 465
+>click on advanced
+	>add credentials
+		>username (email id)
+		>password (app password)
+	> OK
+>check on use SSL
+>Default content type : html
+>default triggers : always
+>Apply and save
+
+>Go to dashboard
+>Create a new freestyle job/project
+>post build actions 
+	>click on editable email notification
+	>project receipent list > enter mail
+	>project reply to list > Enter email
+>Apply and Save
+>Build now
+
+
+
+BUILD JOB PERIODICALLY
+>Go to dashboard
+>create a new freestyle job/project
+>Under build triggers > Choose build periodically > Schedule : * * * * *
+>Under build steps > Add build Steps > choose “Executable windows batch command
+					> echo “hello World
+>Apply and Save
+>Build
+
