@@ -22,5 +22,10 @@ pipeline {
                 echo 'End....'
             }
         }
+        stage('After End') {
+            steps {
+                echo 'End....'
+            }
+        }
     }
 }
